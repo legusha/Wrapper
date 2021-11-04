@@ -4,9 +4,10 @@
   "description": "",
   "license": "MIT",
   "author": "Vlad Legusha <vlad.legusha@gmail.com>",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon",
-    "start": "node src/main.js",
+    "serve": "nodemon",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
