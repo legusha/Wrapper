@@ -1,0 +1,19 @@
+{
+  "name": "wrapper",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "author": "Vlad Legusha <vlad.legusha@gmail.com>",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=14.17.4",
+    "yarn": ">=1.22.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}

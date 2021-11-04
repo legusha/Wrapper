@@ -1,0 +1,5 @@
+{
+  "exec": "yarn run start",
+  "watch": ["src/*"],
+  "ext": "js"
+}
