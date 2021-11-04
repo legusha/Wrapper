@@ -29,7 +29,7 @@ const functionsFind = (data = {}) => {
  * **/
 const functionsWrap = (fns, wrapper) => {
   const handler = (res, key) => {
-    res[key] = wrapper.bind(null, key, res[key])
+    res[key] = wrapper(key, res[key])
     return res
   }
   return Object.keys(fns).reduce(handler, fns)
