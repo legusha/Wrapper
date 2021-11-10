@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "license": "MIT",
-  "author": "Vlad Legusha <vlad.legusha@gmail.com>",
+  "author": "Vlad Legusha <vlad.legusha.dev@gmail.com>",
   "type": "module",
   "scripts": {
     "serve": "nodemon",

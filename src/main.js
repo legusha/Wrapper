@@ -24,6 +24,7 @@ const wrapperCash = (fnName, fn) => {
 
 const callerNew = new Wrapper(caller, wrapperCaller)
 const callerCash = new Wrapper(caller, wrapperCash)
+const callOnce = new Wrapper(caller.call, wrapperCash)
 
 
 callerNew.call('+399 999 999')
@@ -36,6 +37,9 @@ callerCash.call('+399 999 999')
 callerCash.call('+399 999 333')
 callerCash.call('+399 999 666')
 callerNew.end()
+
+
+callOnce('+399 777 777')
 
 
 
