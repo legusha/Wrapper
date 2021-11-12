@@ -1,23 +1,41 @@
 // It defines the types of arguments that can be accepted to Wrapper
 export const types = {
   /**
-   * @param provider {object}
-   * @param providerHandler {function}
+   * @param target {object}
+   * @param targetHandler {function}
    * @return {object}
    * **/
-  'object': (provider, providerHandler) => {
-    const fns = functionsFind(provider)
-    return  functionsWrap(fns, providerHandler)
+  'object': (target, targetHandler) => {
+    const fns = functionsFind(target)
+    return  functionsWrap(fns, targetHandler)
   },
   /**
-   * @param provider {function}
-   * @param providerHandler {function}
+   * @param target {function}
+   * @param targetHandler {function}
    * @return {function}
    * **/
-  'function': (provider, providerHandler) => {
-    const fn = Object.assign({}, {provider})
-    const { provider: newProvider } = functionsWrap(fn, providerHandler)
-    return newProvider
+  'function': (target, targetHandler) => {
+    const fn = Object.assign({}, {target})
+    const { target: newTarget } = functionsWrap(fn, targetHandler)
+    return newTarget
+  },
+  /**
+   * @param target {number}
+   * @param targetHandler {function}
+   * @return {object}
+   * **/
+  'number': (target, targetHandler) => {
+    let newTarget = target
+    return {
+      get value () {
+        return newTarget
+      },
+      set value (value) {
+        newTarget = value
+        targetHandler(target, newTarget)
+        return newTarget
+      }
+    }
   }
 }
 

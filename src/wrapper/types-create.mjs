@@ -1,12 +1,12 @@
-import { types as providerTypes } from './types'
+import { types as targetTypes } from './types'
 
-const errorProviderNotSupport = (type) => `Wrapper not support type "${type}"`
+const errorTargetNotSupport = (type) => `Wrapper not support type "${type}"`
 
-export const typesCreateHandler = (provider) => {
-  const type = typeof provider
-  const handler = providerTypes[type]
+export const typesCreateHandler = (target) => {
+  const type = typeof target
+  const handler = targetTypes[type]
   if (!handler) {
-    throw new Error(errorProviderNotSupport(type))
+    throw new Error(errorTargetNotSupport(type))
   }
-  return providerTypes[type]
+  return targetTypes[type]
 }
