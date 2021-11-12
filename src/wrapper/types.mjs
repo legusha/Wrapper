@@ -1,8 +1,5 @@
-const errorProviderNotFound = 'Provider not found'
-const errorProviderNotSupport = (type) => `Wrapper not support type ${type}`
-
 // It defines the types of arguments that can be accepted to Wrapper
-const providerType = {
+export const types = {
   /**
    * @param provider {object}
    * @param providerHandler {function}
@@ -23,26 +20,6 @@ const providerType = {
     return newProvider
   }
 }
-
-const providerCreateHandler = (provider) => {
-  const type = typeof provider
-  const handler = providerType[type]
-  if (!handler) {
-    throw new Error(errorProviderNotSupport(type))
-  }
-  return providerType[type]
-}
-
-// Main
-function Wrapper(provider, providerHandler) {
-  if (!provider) {
-    throw new Error(errorProviderNotFound)
-  }
-  const providerHandlerByType = providerCreateHandler(provider)
-  return providerHandlerByType(provider, providerHandler)
-}
-
-export { Wrapper }
 
 // Private
 
