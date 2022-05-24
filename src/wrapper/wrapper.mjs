@@ -1,15 +1,14 @@
 import { typesCreateHandler } from './types-create.mjs'
-
-const errorTargetNotFound = 'Provider not found'
+import createError from './error'
 
 
 // Main
 function Wrapper(target, targetHandler) {
   if (!target) {
-    throw new Error(errorTargetNotFound)
+    throw new Error(createError('targetNotFound'))
   }
-  const providerHandlerByType = typesCreateHandler(target)
-  return providerHandlerByType(target, targetHandler)
+  const targetHandlerByType = typesCreateHandler(target)
+  return targetHandlerByType(target, targetHandler)
 }
 
 export { Wrapper }

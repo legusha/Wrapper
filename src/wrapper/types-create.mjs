@@ -1,12 +1,11 @@
 import { types as targetTypes } from './types'
-
-const errorTargetNotSupport = (type) => `Wrapper not support type "${type}"`
+import createError from './error'
 
 export const typesCreateHandler = (target) => {
   const type = typeof target
   const handler = targetTypes[type]
   if (!handler) {
-    throw new Error(errorTargetNotSupport(type))
+    throw new Error(createError('typeNotSupport', type))
   }
   return targetTypes[type]
 }
