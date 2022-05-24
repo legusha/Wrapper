@@ -7,8 +7,10 @@
   "type": "module",
   "scripts": {
     "serve": "nodemon",
+    "watch": "tsc -p tsconfig.json -w",
     "start": "node --experimental-modules --es-module-specifier-resolution=node src/main.js",
     "start:trace": "node --experimental-modules --es-module-specifier-resolution=node --trace-opt --trace-deopt --trace-elements-transitions --prof  src/main.js",
+    "fix:lint": "eslint src --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -16,6 +18,14 @@
     "yarn": ">=1.22.11"
   },
   "devDependencies": {
-    "nodemon": "^2.0.14"
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-functional": "^3.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "nodemon": "^2.0.14",
+    "typescript": "^4.6.4"
   }
 }
