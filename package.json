@@ -7,8 +7,8 @@
   "type": "module",
   "scripts": {
     "serve": "nodemon",
-    "watch": "tsc -p tsconfig.json -w",
-    "start": "node --experimental-modules --es-module-specifier-resolution=node src/main.js",
+    "watch": "nodemon -e",
+    "start": "node --experimental-modules --es-module-specifier-resolution=node --loader 'ts-node/esm' src/main.ts",
     "start:trace": "node --experimental-modules --es-module-specifier-resolution=node --trace-opt --trace-deopt --trace-elements-transitions --prof  src/main.js",
     "fix:lint": "eslint src --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,6 +26,7 @@
     "eslint-plugin-functional": "^3.0.2",
     "eslint-plugin-import": "^2.22.0",
     "nodemon": "^2.0.14",
+    "ts-node": "^10.8.0",
     "typescript": "^4.6.4"
   }
 }

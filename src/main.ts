@@ -1,21 +1,27 @@
 import Wrapper from './wrapper'
 import { cacheProvider } from './cache.mjs'
 
+type fn = (...args: string[] | []) => void;
 // Base example how to use wrapper
 const caller = {
-  phone: 99,
-  call: (n) => console.log('CALL\t', n),
-  end: () => console.log('END')
+    phone: 99,
+    call: (n: number): void => console.log('CALL\t', n),
+    end: (): void => console.log('END')
 }
 
-const wrapperCaller = (fnName, fn) => {
-  return (...args) => {
-    console.log(`Function call with name "${fnName}"`)
-    fn(...args)
-  }
+const wrapperCaller = (fnName: string, fn: fn) => {
+    return (...args: string[] | []) => {
+        console.log(`Function call with name "${fnName}"`)
+        fn(...args)
+    }
 }
-const wrapperNumber = (rootVal, val) => {
-  console.log(`Function call with root value "${rootVal}" and actual value "${val}"`)
+const wrapperCash = (fnName: string, fn: fn) => {
+    return (...args: string[] | []) => {
+        return cashProvider(fnName, fn, ...args)
+    }
+}
+const wrapperNumber = (rootVal:string, val:string) => {
+    console.log(`Function call with root value "${rootVal}" and actual value "${val}"`)
 }
 
 
@@ -25,9 +31,13 @@ const callerPhoneWrapped = new Wrapper(caller.phone, wrapperNumber)
 callerWrapped.call('+399 999 999')
 callerWrapped.end()
 
-// Int
-callerPhoneWrapped.value = 777
-
+const callerNew = new Wrapper(caller, wrapperCaller)
+const callerCash = new Wrapper(caller, wrapperCash)
+const callOnce = new Wrapper(caller.call, wrapperCash)
+const phoneNumber = new Wrapper(caller.number, wrapperNumber)
+console.log(callerNew);
+callerNew.call('+399 999 999')
+callerNew.end()
 
 // Asynchronous cache
 const phoneBook = {

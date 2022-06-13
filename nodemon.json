@@ -1,5 +1,5 @@
 {
   "exec": "yarn run start",
   "watch": ["src/*"],
-  "ext": "js"
+  "ext": "js, *.ts"
 }
