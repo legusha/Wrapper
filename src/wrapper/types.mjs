@@ -15,8 +15,8 @@ export const types = {
    * @return {function}
    * **/
   'function': (target, targetHandler) => {
-    const fn = Object.assign({}, {target})
-    const { target: newTarget } = functionsWrap(fn, targetHandler)
+    const fn = Object.assign({}, {[target.name]: target})
+    const { [target.name]: newTarget } = functionsWrap(fn, targetHandler)
     return newTarget
   },
   /**
