@@ -16,7 +16,7 @@ const cacheProvider = async (fnName, fn, ...args) => {
   const cacheByArgs = cacheByFnName[newArgs];
 
   if (cacheByArgs && timestamp.check(+cacheByArgs.timestamp)) {
-    console.info('Result taken from cache');
+    console.info('Result taken from cache \n');
     return cacheByArgs.result;
   }
 
@@ -59,7 +59,6 @@ async function cacheCreateRoot(fnName, fn, newArgs, ...args) {
     result: res,
     timestamp: timestamp.create(),
   };
-  // storageCache.write(cache);
   return res;
 }
 
@@ -69,12 +68,6 @@ async function cacheCreateSubRoot(fnName, fn, newArgs, ...args) {
     result: res,
     timestamp: timestamp.create(),
   };
-  // const success = storageCache.write(cache);
-
-  // if (!success) {
-  //   cacheResetAll(fnName, newArgs, res);
-  //   storageCache.write(cache);
-  // }
 
   return res;
 }

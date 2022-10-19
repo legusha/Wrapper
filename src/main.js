@@ -3,7 +3,7 @@ import { cacheProvider } from './cache.mjs'
 
 // Base example how to use wrapper
 const caller = {
-  number: 99,
+  phone: 99,
   call: (n) => console.log('CALL\t', n),
   end: () => console.log('END')
 }
@@ -19,14 +19,14 @@ const wrapperNumber = (rootVal, val) => {
 }
 
 
-const callerNew = new Wrapper(caller, wrapperCaller)
-const phoneNumber = new Wrapper(caller.number, wrapperNumber)
+const callerWrapped = new Wrapper(caller, wrapperCaller)
+const callerPhoneWrapped = new Wrapper(caller.phone, wrapperNumber)
 
-callerNew.call('+399 999 999')
-callerNew.end()
+callerWrapped.call('+399 999 999')
+callerWrapped.end()
 
 // Int
-phoneNumber.value = 777
+callerPhoneWrapped.value = 777
 
 
 // Asynchronous cache
@@ -42,15 +42,18 @@ const wrapperCache = (fnName, fn) => {
   };
 };
 
-const callerCache = new Wrapper(phoneBookFind, wrapperCache);
+const phoneBookCached = new Wrapper(phoneBookFind, wrapperCache);
 
 // In Functions that were called with the same arguments, the result will be taken from the cache.
 (async () => {
-  await callerCache('liza')
-  await callerCache('alice')
-  await callerCache('liza')
-  await callerCache('liza')
-  await callerCache('liza')
+  const phoneNumbers = [
+    await phoneBookCached('liza'),
+    await phoneBookCached('alice'),
+    await phoneBookCached('liza'),
+    await phoneBookCached('alice'),
+    await phoneBookCached('liza')
+  ]
+  console.table(phoneNumbers);
 })()
 
 
