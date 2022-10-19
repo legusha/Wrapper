@@ -8,7 +8,7 @@
   "scripts": {
     "serve": "nodemon",
     "start": "node --experimental-modules --es-module-specifier-resolution=node src/main.js",
-    "start:trace": "node --experimental-modules --es-module-specifier-resolution=node --trace-opt --trace-deopt --trace-elements-transitions --prof-process src/main.js",
+    "start:trace": "node --experimental-modules --es-module-specifier-resolution=node --trace-opt --trace-deopt --trace-elements-transitions --prof  src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
