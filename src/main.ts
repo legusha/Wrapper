@@ -1,8 +1,11 @@
-import Wrapper from './wrapper'
+import { Wrapper } from './wrapper'
 import { cacheProvider } from './cache.mjs'
 
 type fn = (...args: string[] | []) => void;
-// Base example how to use wrapper
+type TCaller = typeof caller;
+type TWrapperCaller = typeof wrapperCaller;
+type TWrapperPhone = typeof wrapperNumber;
+
 const caller = {
     phone: 99,
     call: (n: number): void => console.log('CALL\t', n),
@@ -25,26 +28,21 @@ const wrapperNumber = (rootVal:string, val:string) => {
 }
 
 
-const callerWrapped = new Wrapper(caller, wrapperCaller)
-const callerPhoneWrapped = new Wrapper(caller.phone, wrapperNumber)
+const callerWrapped = new Wrapper<TCaller, TWrapperCaller>(caller, wrapperCaller)
+const callerPhoneWrapped = new Wrapper<number, TWrapperPhone>(caller.phone, wrapperNumber)
 
 callerWrapped.call('+399 999 999')
 callerWrapped.end()
 
-const callerNew = new Wrapper(caller, wrapperCaller)
 const callerCash = new Wrapper(caller, wrapperCash)
 const callOnce = new Wrapper(caller.call, wrapperCash)
-const phoneNumber = new Wrapper(caller.number, wrapperNumber)
-console.log(callerNew);
-callerNew.call('+399 999 999')
-callerNew.end()
 
 // Asynchronous cache
 const phoneBook = {
   liza: '+399 999 999',
   alice: '+311 111 111'
 }
-const phoneBookFind = (name) => phoneBook[name];
+const phoneBookFind = (name: keyof typeof phoneBook): string => phoneBook[name];
 
 const wrapperCache = (fnName, fn) => {
   return async (...args) => {
@@ -52,7 +50,7 @@ const wrapperCache = (fnName, fn) => {
   };
 };
 
-const phoneBookCached = new Wrapper(phoneBookFind, wrapperCache);
+const phoneBookCached = new Wrapper<typeof phoneBookFind, typeof wrapperCache>(phoneBookFind, wrapperCache);
 
 // In Functions that were called with the same arguments, the result will be taken from the cache.
 (async () => {

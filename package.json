@@ -6,7 +6,7 @@
   "author": "Vlad Legusha <vlad.legusha.dev@gmail.com>",
   "type": "module",
   "scripts": {
-    "serve": "nodemon",
+    "serve": "tsc --watch ./src/main.ts",
     "watch": "nodemon -e",
     "start": "node --experimental-modules --es-module-specifier-resolution=node --loader 'ts-node/esm' src/main.ts",
     "start:trace": "node --experimental-modules --es-module-specifier-resolution=node --trace-opt --trace-deopt --trace-elements-transitions --prof  src/main.js",
