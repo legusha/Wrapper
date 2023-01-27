@@ -5,6 +5,6 @@ const errorList = {
   targetNotFound: () => 'Target not found'
 }
 
-export default <T extends []>(errorName: TError, ...args: T) => {
+export default <T extends []>(errorName: TError, ...args: T): string => {
     return errorList[errorName](...args);
 }

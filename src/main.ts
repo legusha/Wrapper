@@ -8,11 +8,11 @@ type TWrapperPhone = typeof wrapperNumber;
 
 const caller = {
     phone: 99,
-    call: (n: number): void => console.log('CALL\t', n),
+    call: (n: string): void => console.log('CALL\t', n),
     end: (): void => console.log('END')
 }
 
-const wrapperCaller = (fnName: string, fn: fn) => {
+const wrapperCaller = (fnName: string, fn: fn): fn => {
     return (...args: string[] | []) => {
         console.log(`Function call with name "${fnName}"`)
         fn(...args)
@@ -20,7 +20,7 @@ const wrapperCaller = (fnName: string, fn: fn) => {
 }
 const wrapperCash = (fnName: string, fn: fn) => {
     return (...args: string[] | []) => {
-        return cashProvider(fnName, fn, ...args)
+        return cacheProvider(fnName, fn, ...args)
     }
 }
 const wrapperNumber = (rootVal:string, val:string) => {
@@ -28,14 +28,14 @@ const wrapperNumber = (rootVal:string, val:string) => {
 }
 
 
-const callerWrapped = new Wrapper<TCaller, TWrapperCaller>(caller, wrapperCaller)
-const callerPhoneWrapped = new Wrapper<number, TWrapperPhone>(caller.phone, wrapperNumber)
+const callerWrapped = Wrapper.wrap<TCaller, TWrapperCaller>(caller, wrapperCaller)
+const callerPhoneWrapped = Wrapper.wrap<number, TWrapperPhone>(caller.phone, wrapperNumber)
 
 callerWrapped.call('+399 999 999')
 callerWrapped.end()
 
-const callerCash = new Wrapper(caller, wrapperCash)
-const callOnce = new Wrapper(caller.call, wrapperCash)
+const callerCash = Wrapper.wrap(caller, wrapperCash)
+const callOnce = Wrapper.wrap(caller.call, wrapperCash)
 
 // Asynchronous cache
 const phoneBook = {
@@ -44,13 +44,14 @@ const phoneBook = {
 }
 const phoneBookFind = (name: keyof typeof phoneBook): string => phoneBook[name];
 
-const wrapperCache = (fnName, fn) => {
-  return async (...args) => {
+const wrapperCache = (fnName: string, fn: any) => {
+  return async (...args: unknown[]) => {
     return await cacheProvider(fnName, fn, ...args);
   };
 };
 
-const phoneBookCached = new Wrapper<typeof phoneBookFind, typeof wrapperCache>(phoneBookFind, wrapperCache);
+const phoneBookCached = Wrapper.wrap<typeof phoneBookFind, typeof wrapperCache>
+    (phoneBookFind, wrapperCache);
 
 // In Functions that were called with the same arguments, the result will be taken from the cache.
 (async () => {
